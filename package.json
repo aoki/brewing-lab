@@ -1,0 +1,27 @@
+{
+  "name": "brewing-lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aoki/brewing-lab.git"
+  },
+  "author": "aoki <ringohub@gmail.com> (https://github.com/ringohub)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aoki/brewing-lab/issues"
+  },
+  "homepage": "https://github.com/aoki/brewing-lab#readme",
+  "dependencies": {
+    "next": "9.1.7",
+    "react": "16.12.0",
+    "react-dom": "16.12.0"
+  }
+}
