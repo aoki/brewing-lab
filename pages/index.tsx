@@ -1,4 +1,4 @@
-import { Button, Spacer, Text } from "@zeit-ui/react";
+import { Button, Spacer, Text, Slider } from "@zeit-ui/react";
 import { NextPage } from "next";
 import React, { useCallback, useState } from "react";
 import LinkInput from "../components/link-input";
@@ -31,6 +31,10 @@ const IndexPage: NextPage = () => {
         <Text>{count}</Text>
         <Spacer y={1} />
         <Button onClick={countHandler}> Count +1</Button>
+
+        <Spacer y={2} />
+
+        <Slider max={100} min={0} />
 
         <Spacer y={2} />
         <Text>Celsius: {temperature}</Text>
