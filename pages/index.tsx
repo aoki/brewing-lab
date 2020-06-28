@@ -34,7 +34,7 @@ const IndexPage: NextPage = () => {
 
         <Spacer y={2} />
 
-        <Slider max={100} min={0} />
+        <Slider max={100} min={0} className="slider" />
 
         <Spacer y={2} />
         <Text>Celsius: {temperature}</Text>
@@ -72,6 +72,9 @@ const IndexPage: NextPage = () => {
         />
       </div>
       <style jsx>{`
+        .slider {
+          width: 100px;
+        }
         .contents {
           width: 50%;
         }
