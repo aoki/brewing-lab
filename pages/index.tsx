@@ -1,28 +1,12 @@
+import { Button, Spacer, Text } from "@zeit-ui/react";
 import { NextPage } from "next";
-import React, { useState, useCallback, useEffect } from "react";
-import { Slider, Text, Input, Spacer, Button } from "@zeit-ui/react";
-import LinkSlider from "../components/link-slider";
+import React, { useCallback, useState } from "react";
 import LinkInput from "../components/link-input";
+import LinkSlider from "../components/link-slider";
 
-// interface Degree {
-//   celsius: number;
-//   fahrenheit: number;
-// }
-
-interface Props {}
-
-const IndexPage: NextPage<Props> = () => {
+const IndexPage: NextPage<> = () => {
   const [temperature, setTemperature] = useState<number>(0);
   const [fahrenheit, setFahrenheit] = useState<number>(32);
-
-  // useEffect(() => {
-  //   setFahrenheit(Math.round(((9 / 5) * temperature + 32) * 100) / 100);
-  // }, [temperature]);
-
-  // useEffect(() => {
-  //   setTemperature((Math.round((5 / 9) * (fahrenheit - 32)) * 100) / 100);
-  // }, [fahrenheit]);
-
   const [count, setCount] = useState<number>(0);
 
   console.log(`Render: IndexPage ${count}`);
