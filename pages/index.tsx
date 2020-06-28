@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 import LinkInput from "../components/link-input";
 import LinkSlider from "../components/link-slider";
 
-const IndexPage: NextPage<> = () => {
+const IndexPage: NextPage = () => {
   const [temperature, setTemperature] = useState<number>(0);
   const [fahrenheit, setFahrenheit] = useState<number>(32);
   const [count, setCount] = useState<number>(0);
