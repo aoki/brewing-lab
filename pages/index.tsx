@@ -1,45 +1,102 @@
-import { NextPage } from 'next';
-import React, {useState} from 'react';
+import { NextPage } from "next";
+import React, { useState, useCallback, useEffect } from "react";
+import { Slider, Text, Input, Spacer, Button } from "@zeit-ui/react";
+import LinkSlider from "../components/link-slider";
+import LinkInput from "../components/link-input";
 
-interface Degree {
-  c: string;
-  f: string;
-}
+// interface Degree {
+//   celsius: number;
+//   fahrenheit: number;
+// }
 
-const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => {
-  const [count, setCount] = useState(0);
+interface Props {}
 
-  const [temp, updateTemp] = useState<Degree>({ f: "0", c: "0" })
+const IndexPage: NextPage<Props> = () => {
+  const [temperature, setTemperature] = useState<number>(0);
+  const [fahrenheit, setFahrenheit] = useState<number>(32);
 
-  const updateC = (ev: React.ChangeEvent<HTMLInputElement>) => updateTemp({
-    c: Number(ev.target.value).toFixed(2),
-    f: (Number(ev.target.value) * 9 / 5 + 32).toFixed(2)
-  });
-  
-  const updateF = (ev: React.ChangeEvent<HTMLInputElement>) => updateTemp({
-    c: ((Number(ev.target.value) - 32) * 5 / 9).toFixed(2),
-    f: Number(ev.target.value).toFixed(2)
-  });
+  // useEffect(() => {
+  //   setFahrenheit(Math.round(((9 / 5) * temperature + 32) * 100) / 100);
+  // }, [temperature]);
+
+  // useEffect(() => {
+  //   setTemperature((Math.round((5 / 9) * (fahrenheit - 32)) * 100) / 100);
+  // }, [fahrenheit]);
+
+  const [count, setCount] = useState<number>(0);
+
+  console.log(`Render: IndexPage ${count}`);
+
+  const temperatureChangeValueHandler = useCallback((next: number) => {
+    setTemperature(next);
+    setFahrenheit(Math.round(((9 / 5) * next + 32) * 100) / 100);
+  }, []);
+
+  const fahrenheitChangeValueHandler = useCallback((next: number) => {
+    setFahrenheit(next);
+    setTemperature((Math.round((5 / 9) * (next - 32)) * 100) / 100);
+  }, []);
+
+  const countHandler = () => {
+    setCount(count + 1);
+  };
 
   return (
-    <div>
-      <h1>Hello world!</h1>
-      <p>{userAgent}</p>
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}> Count Up 👍 </button>
-      <h5>Celsius: {temp.c}</h5>
-      <input type = "range" value = {temp.c} onChange = {updateC} />
-      <input type = "number" value = {temp.c} onChange = {updateC} />
-      <h5>Fahrenheit: {temp.f}</h5>
-      <input type = "range" value = {temp.f} onChange = {updateF} />
-      <input type = "numbre" step = "0.01" value = {temp.f} onChange = {updateF} />
+    <div className="main">
+      <div className="contents">
+        <Text>{count}</Text>
+        <Spacer y={1} />
+        <Button onClick={countHandler}> Count +1</Button>
+
+        <Spacer y={2} />
+        <Text>Celsius: {temperature}</Text>
+
+        <Spacer y={1} />
+        <LinkSlider
+          value={temperature}
+          onChangeValue={temperatureChangeValueHandler}
+          max={100}
+          min={0}
+        />
+        <Spacer y={1} />
+        <LinkInput
+          value={temperature}
+          onChangeValue={temperatureChangeValueHandler}
+          max={100}
+          min={0}
+        />
+
+        <Spacer y={2} />
+
+        <Text>Fahrenheit: {fahrenheit}</Text>
+        <LinkSlider
+          value={fahrenheit}
+          onChangeValue={fahrenheitChangeValueHandler}
+          max={212}
+          min={32}
+        />
+        <Spacer y={1} />
+        <LinkInput
+          value={fahrenheit}
+          onChangeValue={fahrenheitChangeValueHandler}
+          max={212}
+          min={32}
+        />
+      </div>
+      <style jsx>{`
+        .contents {
+          width: 50%;
+        }
+        .main {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      `}</style>
     </div>
   );
-}
-
-Home.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] || '' : navigator.userAgent;
-  return { userAgent };
 };
 
-export default Home;
+export default IndexPage;
